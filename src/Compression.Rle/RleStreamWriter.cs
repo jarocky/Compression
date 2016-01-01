@@ -8,7 +8,7 @@ namespace Compression.Rle
     private readonly int _sequenceMin;
     private readonly Stream _stream;
     private int _currentAllSequenceCount = 0;
-    private byte _lastByte = 0;
+    private int _lastByte = -1;
 
     public RleStreamWriter(int sequenceMin, Stream stream)
     {
@@ -47,6 +47,15 @@ namespace Compression.Rle
       _lastByte = b;
     }
 
+    public void WriteAllByte(byte[] bytes)
+    {
+      foreach (var b in bytes)
+      {
+        WriteByte(b);
+      }
+      Flush();
+    }
+
     public void Flush()
     {
       WriteSequenceCount();
@@ -63,6 +72,8 @@ namespace Compression.Rle
       if (_currentAllSequenceCount >= _sequenceMin)
       {
         _stream.WriteByte((byte)(_currentAllSequenceCount - _sequenceMin));
+        _currentAllSequenceCount = 0;
+        _lastByte = -1;
       }
     }
 
@@ -72,7 +83,7 @@ namespace Compression.Rle
       {
         _stream.WriteByte(255);
         _currentAllSequenceCount = 0;
-        _lastByte = 0;
+        _lastByte = -1;
       }
     }
   }

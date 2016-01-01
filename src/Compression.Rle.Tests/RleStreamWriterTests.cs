@@ -7,13 +7,13 @@ namespace Compression.Rle.Tests
   public class RleStreamWriterTests
   {
     [Test]
-    public void Write_SequenceMinLessThanTwo_ThrowArgumentException()
+    public void Constructor_SequenceMinLessThanTwo_ThrowArgumentException()
     {
       Assert.Throws<ArgumentException>(() => new RleStreamWriter(1, new MemoryStream()));
     }
 
     [Test]
-    public void Write_StreamIsNull_ThrowArgumentNullException()
+    public void Constructor_StreamIsNull_ThrowArgumentNullException()
     {
       Assert.Throws<ArgumentNullException>(() => new RleStreamWriter(2, null));
     }
@@ -212,6 +212,50 @@ namespace Compression.Rle.Tests
       rleStreamWriter.Flush();
 
       Assert.AreEqual(3, memoryStream.Length);
+    }
+
+    [Test]
+    public void WriteAllBytes_TwoTheSameBytesAndSequance2()
+    {
+      var memoryStream = new MemoryStream();
+      var rleStreamWriter = new RleStreamWriter(2, memoryStream);
+
+      rleStreamWriter.WriteAllByte(new byte[] { 127, 127, 127, 127 });
+
+      CollectionAssert.AreEqual(new byte[] { 127, 127, 2 }, memoryStream.ToArray());
+    }
+
+    [Test]
+    public void WriteAllBytes_TwoTheSameBytesAndSequance2AndOneOther()
+    {
+      var memoryStream = new MemoryStream();
+      var rleStreamWriter = new RleStreamWriter(2, memoryStream);
+
+      rleStreamWriter.WriteAllByte(new byte[] { 127, 127, 127, 127, 12 });
+
+      CollectionAssert.AreEqual(new byte[] { 127, 127, 2, 12 }, memoryStream.ToArray());
+    }
+
+    [Test]
+    public void WriteAllBytes_SequenceMin2_Decoding()
+    {
+      var memoryStream = new MemoryStream();
+      var rleStreamWriter = new RleStreamWriter(2, memoryStream);
+
+      rleStreamWriter.WriteAllByte(new byte[] { 123, 34, 127, 127, 127, 127, 12, 13, 13, 13, 13, 13, 13, 13, 33 });
+
+      CollectionAssert.AreEqual(new byte[] { 123, 34, 127, 127, 2, 12, 13, 13, 5, 33 }, memoryStream.ToArray());
+    }
+
+    [Test]
+    public void WriteAllBytes_SequenceMin3_Decoding()
+    {
+      var memoryStream = new MemoryStream();
+      var rleStreamWriter = new RleStreamWriter(3, memoryStream);
+
+      rleStreamWriter.WriteAllByte(new byte[] { 123, 34, 127, 127, 2, 12, 13, 13, 13, 13, 13, 13, 13, 13, 33 });
+
+      CollectionAssert.AreEqual(new byte[] { 123, 34, 127, 127, 2, 12, 13, 13, 13, 5, 33 }, memoryStream.ToArray());
     }
   }
 }

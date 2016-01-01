@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IRleStreamReader.cs" />
     <Compile Include="IRleStreamWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RleStreamReader.cs" />
     <Compile Include="RleStreamWriter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

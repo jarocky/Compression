@@ -2,8 +2,8 @@
 {
   public interface IRleStreamWriter
   {
-    void WriteByte(byte b);
+    int WriteByte(byte b);
     void WriteAllByte(byte[] bytes);
-    void Flush();
+    int Flush();
   }
 }

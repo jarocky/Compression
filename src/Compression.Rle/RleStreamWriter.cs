@@ -14,37 +14,41 @@ namespace Compression.Rle
     {
       if (sequenceMin < 2)
       {
-        throw new ArgumentException("Cannot be less than 2", "sequenceMin");
+        throw new ArgumentException("Cannot be less than 2", nameof(sequenceMin));
       }
 
       if (stream == null)
       {
-        throw new ArgumentNullException("stream", "Cannot be null");
+        throw new ArgumentNullException(nameof(stream), "Cannot be null");
       }
 
       _sequenceMin = sequenceMin;
       _stream = stream;
     }
 
-    public void WriteByte(byte b)
+    public int WriteByte(byte b)
     {
+      var bytesCount = 0;
       if (b == _lastByte)
       {
         _currentAllSequenceCount++;
         if (_currentAllSequenceCount <= _sequenceMin)
         {
           _stream.WriteByte(b);
+          bytesCount++;
         }
 
-        SequenceOverflow();
+        bytesCount += SequenceOverflow();
       }
       else
       {
-        WriteSequenceCount();
+        bytesCount += WriteSequenceCount();
         _currentAllSequenceCount = 1;
         _stream.WriteByte(b);
+        bytesCount++;
       }
       _lastByte = b;
+      return bytesCount;
     }
 
     public void WriteAllByte(byte[] bytes)
@@ -56,9 +60,9 @@ namespace Compression.Rle
       Flush();
     }
 
-    public void Flush()
+    public int Flush()
     {
-      WriteSequenceCount();
+      return WriteSequenceCount();
     }
 
     public void Dispose()
@@ -67,24 +71,28 @@ namespace Compression.Rle
       _stream.Dispose();
     }
 
-    private void WriteSequenceCount()
+    private int WriteSequenceCount()
     {
       if (_currentAllSequenceCount >= _sequenceMin)
       {
         _stream.WriteByte((byte)(_currentAllSequenceCount - _sequenceMin));
         _currentAllSequenceCount = 0;
         _lastByte = -1;
+        return 1;
       }
+      return 0;
     }
 
-    private void SequenceOverflow()
+    private int SequenceOverflow()
     {
       if (_currentAllSequenceCount - _sequenceMin == 255)
       {
         _stream.WriteByte(255);
         _currentAllSequenceCount = 0;
         _lastByte = -1;
+        return 1;
       }
+      return 0;
     }
   }
 }

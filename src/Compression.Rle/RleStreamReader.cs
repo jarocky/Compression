@@ -16,12 +16,12 @@ namespace Compression.Rle
     {
       if (sequenceMin < 2)
       {
-        throw new ArgumentException("Cannot be less than 2", "sequenceMin");
+        throw new ArgumentException("Cannot be less than 2", nameof(sequenceMin));
       }
 
       if (stream == null)
       {
-        throw new ArgumentNullException("stream", "Cannot be null");
+        throw new ArgumentNullException(nameof(stream), "Cannot be null");
       }
 
       _sequenceMin = sequenceMin;

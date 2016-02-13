@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compression.Rle", "Compress
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compression.Rle.Tests", "Compression.Rle.Tests\Compression.Rle.Tests.csproj", "{45F46131-E5CA-4EAB-B367-94E78E6C10C9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compression.FileSystem", "Compression.FileSystem\Compression.FileSystem.csproj", "{3E5D948D-38D5-4631-BE58-A0A101264CC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compression.FileSystem.Console.Tests", "Compression.FileSystem.Console.Tests\Compression.FileSystem.Console.Tests.csproj", "{2D22045C-03F6-4EF5-92DF-0F205DB98E3F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{45F46131-E5CA-4EAB-B367-94E78E6C10C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45F46131-E5CA-4EAB-B367-94E78E6C10C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45F46131-E5CA-4EAB-B367-94E78E6C10C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E5D948D-38D5-4631-BE58-A0A101264CC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E5D948D-38D5-4631-BE58-A0A101264CC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E5D948D-38D5-4631-BE58-A0A101264CC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E5D948D-38D5-4631-BE58-A0A101264CC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D22045C-03F6-4EF5-92DF-0F205DB98E3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D22045C-03F6-4EF5-92DF-0F205DB98E3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D22045C-03F6-4EF5-92DF-0F205DB98E3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D22045C-03F6-4EF5-92DF-0F205DB98E3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
